@@ -1,34 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+appwrite@198
+
+10th video from playlist
+video timing : just started
+
+
+
+
+
+
+### Creating  context  (context/test_context.js)
+```javascript
+import {  createContext} from 'react'
+export const myCont = createContext('default')
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### page.tsx
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+"use client";
+import React, { useContext } from "react";
+import { myCont } from "@/context/test_context";
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+const MyApp = () => {
+  return (
+    <div>
+     // context providing value to all it child
+     // no need for props drilling
+      <myCont.Provider value="pooja">
+        <Page />
+      </myCont.Provider>
+    </div>
+  );
+};
 
-## Deploy on Vercel
+const Page = () => {
+  // consuming the value provided by context provider
+  return useContext(myCont);
+};
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export default MyApp;
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+
+### useRef best explain
+
+When you create a `ref` using the `useRef` hook in React, like this: `const myRef = useRef();`, the `myRef` object holds a `current` property. The `current` property of the `ref` object is used to store the current value associated with the `ref`.
+
+In other words, `myRef.current` is where you store and access the value that the `ref` is referring to. This value can be anything you want: a DOM element, a variable, an object, etc.
+
+Here's a more detailed breakdown of what happens:
+
+1. **Create a Ref:** When you create a `ref` using `useRef`, it initializes an object with a `current` property. Initially, the `current` property is set to `undefined`.
+
+   ```jsx
+   const myRef = useRef();
+   ```
+
+2. **Assign a Value:** You can assign a value to the `current` property of the `ref`. This value can be anything you want to store and access.
+
+   ```jsx
+   myRef.current = 'Hello, world!';
+   ```
+
+3. **Access the Value:** To access the value stored in the `ref`, you use the `current` property:
+
+   ```jsx
+   console.log(myRef.current); // Outputs: Hello, world!
+   ```
+
+Here's an example with React components:
+
+```jsx
+import React, { useRef } from 'react';
+
+function MyComponent() {
+  const myRef = useRef();
+
+  // Assign a value to the ref's current property
+  myRef.current = 'Hello, world!';
+
+  return (
+    <div>
+      {/* Access the value stored in the ref */}
+      <p>{myRef.current}</p>
+    </div>
+  );
+}
+
+export default MyComponent;
+```
+
+In this example, the `myRef` object is created using `useRef`, and its `current` property is assigned the string `'Hello, world!'`. Later, when rendering the component, we access and display the value using `myRef.current`.
+
+Remember that the `current` property of the `ref` is mutable, meaning you can change its value at any time. This is particularly useful for scenarios where you need to store and manipulate values without causing re-renders in your component.
+
+
+
+
+
+
+
